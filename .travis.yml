@@ -59,4 +59,4 @@ services:
 addons:
     sonarcloud:
         organization: "nbiotte"
-        token: "$SONARCLOUD_TOKEN"
+        token: "$SONAR_TOKEN"
