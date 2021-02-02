@@ -28,8 +28,13 @@ jobs:
             - cd sample-application-backend
           script:
             - echo "Docker build ..."
+            - docker build -t tp02 .
+            - docker images
+            - docker tag tp02 $DOCKER_USERNAME/tp02
             - echo "Docker login ..."
+            - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
             - echo "Docker push ..."
+            - docker push $DOCKER_USERNAME/tp02
         - stage: "Package"
           before_script:
             - cd sample-application-frontend
