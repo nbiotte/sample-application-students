@@ -24,7 +24,7 @@ services:
     container_name: frontend
     build: ./sample-application-frontend
     ports:
-      - "80:80"
+      - "81:80"
     networks:
       - app-network
 
