@@ -14,6 +14,7 @@ jobs:
             - cd sample-application-backend
           script:
             - echo "Maven build"
+            - mvn clean verify
             - echo "Run test coverage and Quality Gate"
         - stage: "Build and Test"
           language: node.js
@@ -22,26 +23,32 @@ jobs:
             - cd sample-application-frontend
           script:
             - echo "NPM install and build"
+            - npm run test
             
         - stage: "Package"
           before_script:
             - cd sample-application-backend
           script:
             - echo "Docker build ..."
-            - docker build -t tp02 .
+            - docker build -t tp02backend .
             - docker images
-            - docker tag tp02 $DOCKER_USERNAME/tp02
+            - docker tag tp02 $DOCKER_USERNAME/tp02tp02backend
             - echo "Docker login ..."
             - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
             - echo "Docker push ..."
-            - docker push $DOCKER_USERNAME/tp02
+            - docker push $DOCKER_USERNAME/tp02tp02backend
         - stage: "Package"
           before_script:
             - cd sample-application-frontend
           script:
             - echo "Docker build ..."
+            - docker build -t tp02frontend .
+            - docker images
+            - docker tag tp02 $DOCKER_USERNAME/tp02tp02frontend
             - echo "Docker login ..."
+            - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
             - echo "Docker push ..."
+            - docker push $DOCKER_USERNAME/tp02tp02frontend
 cache:
     directories:
         - "$HOME/.m2/repository"
