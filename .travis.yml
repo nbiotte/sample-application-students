@@ -14,8 +14,8 @@ jobs:
             - cd sample-application-backend
           script:
             - echo "Maven build"
-            - mvn clean verify
             - echo "Run test coverage and Quality Gate"
+            - mvn clean verify
         - stage: "Build and Test"
           language: node.js
           node_js: "12.20"
@@ -30,9 +30,8 @@ jobs:
             - cd sample-application-backend
           script:
             - echo "Docker build ..."
-            - docker build -t tp02backend .
+            - docker build -t $DOCKER_USERNAME/tp02backend .
             - docker images
-            - docker tag tp02 $DOCKER_USERNAME/tp02tp02backend
             - echo "Docker login ..."
             - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
             - echo "Docker push ..."
@@ -42,9 +41,8 @@ jobs:
             - cd sample-application-frontend
           script:
             - echo "Docker build ..."
-            - docker build -t tp02frontend .
+            - docker build -t $DOCKER_USERNAME/tp02frontend .
             - docker images
-            - docker tag tp02 $DOCKER_USERNAME/tp02tp02frontend
             - echo "Docker login ..."
             - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
             - echo "Docker push ..."
