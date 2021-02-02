@@ -35,7 +35,7 @@ jobs:
             - echo "Docker login ..."
             - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
             - echo "Docker push ..."
-            - docker push $DOCKER_USERNAME/tp02tp02backend
+            - docker push $DOCKER_USERNAME/tp02backend
         - stage: "Package"
           before_script:
             - cd sample-application-frontend
@@ -46,7 +46,7 @@ jobs:
             - echo "Docker login ..."
             - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
             - echo "Docker push ..."
-            - docker push $DOCKER_USERNAME/tp02tp02frontend
+            - docker push $DOCKER_USERNAME/tp02frontend
 cache:
     directories:
         - "$HOME/.m2/repository"
